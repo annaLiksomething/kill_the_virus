@@ -28,7 +28,7 @@ function mousePressed() {
   //e.g. a random velocity on the x and y coordinates
   s.velocity.x = random(-5, 5);
   s.velocity.y = random(-5, 5);
-  direction+=2
-  s.setSpeed(3, direction);
+  // direction+=2
+  // s.setSpeed(3, direction);
 }
 
