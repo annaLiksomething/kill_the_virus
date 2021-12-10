@@ -24,7 +24,7 @@ function setup() {
 }
 
 function draw() {
-  background();
+  background(50);
   for (var i = 0; i < allSprites.length; i++) {
     var s = allSprites[i];
     if (s.position.x < -MARGIN) s.position.x = width + MARGIN;
@@ -80,7 +80,7 @@ function vaccineShot(virus, vaccine) {
   }
 
   for (var i = 0; i < 10; i++) {
-    var p = createSprite(vaccine.position.x, vaccine.position.y);
+    var p = createSprite(vaccine.position.x, vaccine.position.y, 30, 30);
     //p.addImage(particleImage);
     p.setSpeed(random(3, 5), random(360));
     p.friction = 0.95;
