@@ -12,8 +12,7 @@ var syringeImage, virusImage;
 function setup() {
   
   createCanvas(800, 600);
-  fill(255);
-  text(width/2)
+  
   syringeImage = loadImage("https://cdn.glitch.me/070b9542-c4af-439a-a169-8bdbf7f0427e%2Fsyringe.png?v=1639107283062");
  
   syringe = createSprite(width / 2, height * 0.9, 10, 10);
@@ -36,6 +35,10 @@ function setup() {
 
 function draw() {
   background(53, 120, 171);
+  fill(255);
+  textAlign(CENTER);
+  textSize(20);
+  text('Controls: Mouse + X', width/2, 20);
   for (var i = 0; i < allSprites.length; i++) {
     var s = allSprites[i];
     if (s.position.x < -MARGIN) s.position.x = width + MARGIN;
