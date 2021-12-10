@@ -24,7 +24,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background();
   for (var i = 0; i < allSprites.length; i++) {
     var s = allSprites[i];
     if (s.position.x < -MARGIN) s.position.x = width + MARGIN;
@@ -44,11 +44,10 @@ function draw() {
   }
 
   if (keyWentDown("x")) {
-    var bullet = createSprite(syringe.position.x, syrimge.position.y,);
-    bullet.addImage(bulletImage);
-    bullet.setSpeed(10 + ship.getSpeed(), ship.rotation);
-    bullet.life = 30;
-    bullets.add(bullet);
+    var vaccine = createSprite(syringe.position.x, syrimge.position.y, 5, 7);
+    vaccine.setSpeed(10 + syringe.getSpeed(), syringe.rotation);
+    vaccine.life = 30;
+    vaccine.add(bullet);
   }
 
   drawSprites();
