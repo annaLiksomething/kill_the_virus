@@ -3,14 +3,25 @@ var viruses;
 var syringe;
 var MARGIN = 40;
 
+var vaccines;
+var viruses;
+var syringe;
+var MARGIN = 40;
+var syringeImage, virusImage;
+
 function setup() {
   
   createCanvas(800, 600);
-
+  fill(255);
+  text(width/2)
+  syringeImage = loadImage("https://cdn.glitch.me/070b9542-c4af-439a-a169-8bdbf7f0427e%2Fsyringe.png?v=1639107283062");
+ 
   syringe = createSprite(width / 2, height * 0.9, 10, 10);
   syringe.maxSpeed = 6;
-  syringe.friction = 0.5;
+  syringe.friction = 0.05;
   syringe.setCollider("circle", 0, 0, 20);
+
+  syringe.addImage('normal', syringeImage);
 
   viruses = new Group();
   vaccines = new Group();
@@ -24,7 +35,7 @@ function setup() {
 }
 
 function draw() {
-  background(50);
+  background(53, 120, 171);
   for (var i = 0; i < allSprites.length; i++) {
     var s = allSprites[i];
     if (s.position.x < -MARGIN) s.position.x = width + MARGIN;
@@ -36,18 +47,22 @@ function draw() {
   viruses.overlap(vaccines, vaccineShot);
 
   syringe.bounce(viruses);
+  
+  syringe.attractionPoint(0.2, mouseX, mouseY);
 
-  if (keyDown(LEFT_ARROW)) syringe.rotation -= 4;
-  if (keyDown(RIGHT_ARROW)) syringe.rotation += 4;
+
+    syringe.rotation -= 0.005*mouseX;
+
+
   if (keyDown(UP_ARROW)) {
-    syringe.addSpeed(1, ship.rotation);
+    syringe.addSpeed(1, syringe.rotation);
   }
 
   if (keyWentDown("x")) {
-    var vaccine = createSprite(syringe.position.x, syrimge.position.y, 5, 7);
+    var vaccine = createSprite(syringe.position.x, syringe.position.y, 5, 7);
     vaccine.setSpeed(10 + syringe.getSpeed(), syringe.rotation);
     vaccine.life = 30;
-    vaccine.add(bullet);
+    vaccines.add(vaccine);
   }
 
   drawSprites();
@@ -55,8 +70,9 @@ function draw() {
 
 function createVirus(type, x, y) {
   var v = createSprite(x, y, 50, 50);
-  //var img = loadImage('assets/asteroid'+floor(random(0, 3))+'.png');
-  //a.addImage(img);
+  var img = loadImage("https://cdn.glitch.me/070b9542-c4af-439a-a169-8bdbf7f0427e%2Fvirus.png?v=1639107283062");
+  
+  v.addImage(img);
   v.setSpeed(2.5 - type / 2, random(360));
   v.rotationSpeed = 0.5;
   //a.debug = true;
@@ -65,7 +81,7 @@ function createVirus(type, x, y) {
   if (type == 2) v.scale = 0.6;
   if (type == 1) v.scale = 0.3;
 
-  v.mass = 2 + a.scale;
+  v.mass = 2 + v.scale;
   v.setCollider("circle", 0, 0, 50);
   viruses.add(v);
   return v;
@@ -80,10 +96,10 @@ function vaccineShot(virus, vaccine) {
   }
 
   for (var i = 0; i < 10; i++) {
-    var p = createSprite(vaccine.position.x, vaccine.position.y, 30, 30);
+    var p = createSprite(vaccine.position.x, vaccine.position.y, 10, 10);
     //p.addImage(particleImage);
     p.setSpeed(random(3, 5), random(360));
-    p.friction = 0.95;
+    p.friction = 0.05;
     p.life = 15;
   }
 
