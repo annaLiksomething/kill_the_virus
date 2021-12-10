@@ -45,3 +45,23 @@ function createVirus(type, x, y) {
   viruses.add(v);
   return v;
 }
+
+function asteroidHit(asteroid, bullet) {
+  var newType = asteroid.type-1;
+
+  if(newType>0) {
+    createAsteroid(newType, asteroid.position.x, asteroid.position.y);
+    createAsteroid(newType, asteroid.position.x, asteroid.position.y);
+  }
+
+  for(var i=0; i<10; i++) {
+    var p = createSprite(bullet.position.x, bullet.position.y);
+    p.addImage(particleImage);
+    p.setSpeed(random(3, 5), random(360));
+    p.friction = 0.95;
+    p.life = 15;
+  }
+
+  bullet.remove();
+  asteroid.remove();
+}
